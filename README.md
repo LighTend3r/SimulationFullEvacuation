@@ -1,5 +1,5 @@
 # SimulationFullEvacuation
-Pour mon TIP en Prépa j'ai du faire une simulation de foule qui évacuer une salle
+Pour mon TIP en Prépa, j'ai dû faire une simulation de foule qui évacuait une salle
 
 ---
 
