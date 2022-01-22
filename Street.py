@@ -82,12 +82,12 @@ class Street:
 		pygame.draw.line(self.screen, blackColor, (startX, startY), (endX, endY), 3)
 
 	def load_sprites(self):
-		"""Load all of the fish sprites."""      
-		self.pnj_group = pygame.sprite.Group()		
+		"""Load all of the fish sprites."""
+		self.pnj_group = pygame.sprite.Group()
 		'''
 		for i in range(1):
 			self.pnj_group.add(Pnj.Pnj(rect=pygame.Rect(15*30, 18*30, 10, 10), color=whiteColor, finish= (0,10)))
-		
+
 		for i in range(2,20):
 			self.pnj_group.add(Pnj.Pnj(rect=pygame.Rect(14*30, i*30, 10, 10), color=whiteColor, finish= (0,10)))
 		for i in range(2,20):
@@ -104,13 +104,11 @@ class Street:
 		L = [(0,8),(0,7)]
 		for i in range(150):
 			nb = choice(L)
-			print(nb)
 			self.pnj_group.add(Pnj.Pnj(rect=pygame.Rect(randint(70,590), randint(10,300), 10, 10), color=whiteColor, finish= nb))
-		
+
 		L = [(0,11),(0,12)]
 		for i in range(150):
 			nb = choice(L)
-			print(nb)
 			self.pnj_group.add(Pnj.Pnj(rect=pygame.Rect(randint(70,590), randint(300,590), 10, 10), color=whiteColor, finish= nb))
 	def load_wall(self):
 		wall = []
@@ -130,7 +128,7 @@ class Street:
 		self.load_sprites()
 		self.load_wall()
 		#arrival = pygame.sprite.Sprite.__init__()
-		
+
 
 		while True:
 			self.screen.fill(grayColor)
@@ -139,50 +137,33 @@ class Street:
 			self.wall_group.draw(self.screen)
 			self.pnj_group.draw(self.screen)
 
-	
+
 			# Update the pnj velocities
 			for pnj in self.pnj_group.sprites():
 				pnj.update_velocity(street=self)
-	
-			# Move pnj                             
+
+			# Move pnj
 			for pnj in self.pnj_group.sprites():
 				pnj.swim(street=self)
-	
+
 			# Draw direction arrows
 
 			'''
 			for pnj in self.pnj_group.sprites():
 				self.draw_direction_line(pnj)
 			'''
-			
-	
+
+
 			# Check for all colisions among exit and pnj
 			#spriteHitList = pygame.sprite.groupcollide(self.end, self.pnj_group, False, True, collided=physics.fish_collision)
-	
+
 			# Go through a list of all Event objects that happened since the last get()
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					pygame.quit()
 					sys.exit()
-	
-				elif event.type == KEYDOWN:
-					if event.key == K_a:
-						Prey.REPULSIVE_CONST += 1.0
-						Prey.REPULSIVE_CONST = max(0.0, Prey.REPULSIVE_CONST)
-						print( 'REPULSIVE_CONST = %.1f' % Prey.REPULSIVE_CONST)
-					if event.key == K_q:
-						Prey.REPULSIVE_CONST -= 1.0
-						Prey.REPULSIVE_CONST = max(0.0, Prey.REPULSIVE_CONST)
-						print( 'REPULSIVE_CONST = %.1f' % Prey.REPULSIVE_CONST)
-					if event.key == K_w:
-						Prey.WALL_CONST += 1.0
-						Prey.WALL_CONST = max(0.0, Prey.WALL_CONST)
-						print( 'WALL_CONST = %.1f' % Prey.WALL_CONST)
-					if event.key == K_s:
-						Prey.WALL_CONST -= 1.0
-						Prey.WALL_CONST = max(0.0, Prey.WALL_CONST)
-						print( 'WALL_CONST = %.1f' % Prey.WALL_CONST)
-	
+
+
 			# Draw new window to the screen.
 			pygame.display.update()
 			fpsClock.tick(30)   # Wait long enough so fps <= 30.

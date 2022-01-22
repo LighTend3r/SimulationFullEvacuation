@@ -72,7 +72,7 @@ def astar(array, start, goal):
     oheap = []
 
     heapq.heappush(oheap, (fscore[start], start))
- 
+
 
     while oheap:
 
@@ -100,7 +100,7 @@ def astar(array, start, goal):
 
             if 0 <= neighbor[0] < array.shape[0]:
 
-                if 0 <= neighbor[1] < array.shape[1]:                
+                if 0 <= neighbor[1] < array.shape[1]:
 
                     if array[neighbor[0]][neighbor[1]] == 1:
 
@@ -117,12 +117,12 @@ def astar(array, start, goal):
                 # array bound x walls
 
                 continue
- 
+
 
             if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
 
                 continue
- 
+
 
             if  tentative_g_score < gscore.get(neighbor, 0) or neighbor not in [i[1]for i in oheap]:
 
@@ -133,7 +133,7 @@ def astar(array, start, goal):
                 fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
 
                 heapq.heappush(oheap, (fscore[neighbor], neighbor))
- 
+
 
     return False
 

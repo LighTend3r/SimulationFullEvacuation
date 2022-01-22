@@ -15,7 +15,7 @@ class Wall(sprite.Sprite):
 
     def __init__(self, rect=None, color=None):
         sprite.Sprite.__init__(self)
-        
+
         Wall.count += 1
         self.fishID = Wall.count
 

@@ -13,7 +13,7 @@ class AI(sprite.Sprite):
 
     def __init__(self, rect=None, color=None):
         sprite.Sprite.__init__(self)
-        
+
         AI.count += 1
         self.fishID = AI.count
 
@@ -30,24 +30,24 @@ class AI(sprite.Sprite):
             self.image = Surface([20, 20])
             self.image.fill(self.color)
             self.rect = self.image.get_rect()
-        
+
         self.blindFOV = 0.01
         self.blindLeft = pi - self.blindFOV/2.
         self.blindRight = pi + self.blindFOV/2.
         self.MAX_SPEED_X = 2.0
         self.MAX_SPEED_Y = 2.0
-        self.xVel = 0        
+        self.xVel = 0
         self.yVel = 0
 
 
     def calc_orientation(self):
-        """Based on xVel, yVel, which way am I facing? 
+        """Based on xVel, yVel, which way am I facing?
         Change to call this once per timestep!"""
         return Physics.orientation_from_components(self.xVel,self.yVel)
 
 
     def behind_me(self, otherFish):
-        """Return boolean wether the other fish is behind this fish. 
+        """Return boolean wether the other fish is behind this fish.
         Uses xVel, yVel and position."""
         theta1 = self.calc_orientation()
         theta2 = self.direction_to(otherFish)

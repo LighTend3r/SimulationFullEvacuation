@@ -6,7 +6,6 @@ import PathFinding
 import numpy as np
 from random import random
 
-
 import Physics
 import matplotlib.pyplot as plt
 FEAR_CONST = 20
@@ -21,7 +20,7 @@ ZONE_OF_FEAR = 30.0
 
 # Not usefull
 def collision(rectA, rectB):
-	
+
 	if rectB.right < rectA.left:
 		# rectB est à gauche
 		right = True
@@ -43,7 +42,7 @@ def collision(rectA, rectB):
 
 def from_coord_to_grid(pos):
     """Retourne la position dans le niveau en indice (i, j)
- 
+
     `pos` est un tuple contenant la position (x, y) du coin supérieur gauche.
     On limite i et j à être positif.
     """
@@ -51,10 +50,10 @@ def from_coord_to_grid(pos):
     i = max(0, int(x / 25))
     j = max(0, int(y / 25))
     return i, j
-    
+
 def get_neighbour_blocks(niveau, i_start, j_start):
     """Retourne la liste des rectangles autour de la position (i_start, j_start).
- 
+
     Vu que le personnage est dans le carré (i_start, j_start), il ne peut
     entrer en collision qu'avec des blocks dans sa case, la case en-dessous,
     la case à droite ou celle en bas et à droite. On ne prend en compte que
@@ -132,7 +131,6 @@ class Pnj(AI):
 			a = random()
 			if a >= 0.7:
 				self.vitesse = a
-				print(a)
 				rando = False
 
 
@@ -148,12 +146,12 @@ class Pnj(AI):
 
 				dx = self.rect[0] - (wall.rect[0])
 				dy = self.rect[1] - (wall.rect[1])
-	
+
 				r = sqrt(dx**2 + dy**2)
 				if r > ZONE_OF_FEAR or r == 0:
 					continue
-				else : 
-					F_x += 100000*FEAR_CONST * (dx / r**3) 
+				else :
+					F_x += 100000*FEAR_CONST * (dx / r**3)
 
 		return F_x, 0
 
@@ -167,7 +165,7 @@ class Pnj(AI):
 		F_x, F_y = 0, 0
 		start = (int((self.rect[0])//30),int((self.rect[1]+1)//30))
 		if array is None:
-		    return F_x, F_y
+			return F_x, F_y
 
 		route = PathFinding.astar(array, start, self.finish)
 
@@ -203,9 +201,9 @@ class Pnj(AI):
 			return F_x, F_y
 		elif len(route)>2:
 			route = route[::-1]
-		
+
 			for i in range(3):
-		
+
 				dx = self.rect[0] - (route[i][0]*30)
 				dy = self.rect[1] - (route[i][1]*30)
 				r = sqrt(dx**2 + dy**2)
@@ -219,9 +217,9 @@ class Pnj(AI):
 
 		elif len(route)>1:
 			route = route[::-1]
-		
+
 			for i in range(2):
-		
+
 				dx = self.rect[0] - (route[i][0]*30)
 				dy = self.rect[1] - (route[i][1]*30)
 				r = sqrt(dx**2 + dy**2)
@@ -255,7 +253,6 @@ class Pnj(AI):
 			return F_x, F_y
 		for pnj in pnjList:
 			if self.behind_me(pnj):
-				print('11111111111')
 				continue
 			else:
 				dx = self.rect[0] - pnj.rect[0]
@@ -274,10 +271,10 @@ class Pnj(AI):
 						F_y += 10
 					else:
 						F_x -= 10
-		return F_x, F_y                     
+		return F_x, F_y
 
 
-	def calc_wall_forces(self, width, height): 
+	def calc_wall_forces(self, width, height):
 		"""Calcule la force des bords"""
 		F_x, F_y = 0, 0
 		if self.rect[0] < ZONE_OF_WALL:
@@ -292,7 +289,7 @@ class Pnj(AI):
 
 
 	def update_velocity(self, street):
-		
+
 		"""Update the fishes velocity based on forces from other pnj."""
 		# Stay near other pnj, but not too close, and swim in same direction.
 		pnjList = street.pnj_group.sprites()
@@ -303,7 +300,7 @@ class Pnj(AI):
 			pygame.sprite.Sprite.kill(self)
 		if 0<=self.rect[0]<=2*30 and 11*30<=self.rect[1]<=13*30:
 			pygame.sprite.Sprite.kill(self)
-			
+
 		if 0<=self.rect[0]<=2*30 and 11.1*30<=self.rect[1]<=19*30:
 			self.rect.move_ip(3, 0)
 
@@ -362,4 +359,3 @@ class Pnj(AI):
 			dy *= self.vitesse
 		'''
 		self.rect.move_ip(dx, dy)
-		
